@@ -34,7 +34,8 @@ export default (state = initialState, action) => {
                 },
                 totalAmount: state.totalAmount + prodPrice
             }
-
-
+    default: 
+        return state
+        
     }
 }
