@@ -5,6 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import Colors from "../constants/Colors";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
+import CartScreen from './../screens/shop/CartScreen';
 
 const defaultNavOptions = {
     headerStyle: {
@@ -21,7 +22,8 @@ const defaultNavOptions = {
 
 const ProductsNavigator = createStackNavigator({
     ProductsOverview: ProductsOverviewScreen,
-    ProductDetail: ProductDetailScreen
+    ProductDetail: ProductDetailScreen,
+    Cart: CartScreen
 }, {
     defaultNavigationOptions: defaultNavOptions
 })
