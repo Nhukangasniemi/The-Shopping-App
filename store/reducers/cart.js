@@ -1,6 +1,6 @@
 import PRODUCTS from "./../../data/dummy-data";
 import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
-import CartItem from "./../../data/cart-item";
+import CartItem from "../../models/cart-item";
 
 const initialState = {
   items: {},
