@@ -9,7 +9,7 @@ import {
 import DefaultText from "../DefaultText";
 import { Ionicons } from "@expo/vector-icons";
 
-const CartItem = (props) => {
+const CartItem = props => {
   return (
     <View style={styles.cartItem}>
       <View style={styles.itemData}>
@@ -17,14 +17,19 @@ const CartItem = (props) => {
         <Text style={styles.mainText}>{props.title}</Text>
       </View>
       <View style={styles.itemData}>
-        <Text style={styles.mainText}>${props.amount.toFixed(2)}</Text>
-        <TouchableOpacity onPress={props.onRemove} style={styles.deleteButton}>
-          <Ionicons
-            name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
-            size={23}
-            color="red"
-          />
-        </TouchableOpacity>
+        <Text style={styles.mainText}>${props.amount}</Text>
+        {props.deletable && (
+          <TouchableOpacity
+            onPress={props.onRemove}
+            style={styles.deleteButton}
+          >
+            <Ionicons
+              name={Platform.OS === "android" ? "md-trash" : "ios-trash"}
+              size={23}
+              color="red"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
