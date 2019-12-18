@@ -8,9 +8,7 @@ import { removeFromCart } from "../../store/actions/cart";
 import { addOrder } from "../../store/actions/orders";
 
 const CartScreen = () => {
-  const cartTotalAmount = useSelector(state =>
-    state.cart.totalAmount.toFixed(2)
-  );
+  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   const cartItems = useSelector(state => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
@@ -33,7 +31,9 @@ const CartScreen = () => {
       <View style={styles.summary}>
         <DefaultText style={styles.summaryText}>
           Total:{" "}
-          <DefaultText style={styles.amount}>${cartTotalAmount}</DefaultText>
+          <DefaultText style={styles.amount}>
+            ${(parseFloat(cartTotalAmount).toFixed(2) * 1)}
+          </DefaultText>
         </DefaultText>
         <Button
           color={Colors.accent}
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 });
 
 CartScreen.navigationOptions = {
-  headerTitle: 'Your Cart'
-}
+  headerTitle: "Your Cart"
+};
 
 export default CartScreen;

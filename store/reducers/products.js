@@ -16,5 +16,7 @@ export default (state = initialState, action) => {
           prod => prod.id !== action.pid
         )
       };
+    default:
+        return state
   }
 };
