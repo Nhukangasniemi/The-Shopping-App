@@ -1,39 +1,54 @@
 import React from "react";
-import { FlatList, Platform } from "react-native";
+import { FlatList, Button, Platform } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import ProductItem from "../../components/shop/ProductItem";
 import * as cartActions from "../../store/actions/cart";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/UI/HeaderButton";
+import Colors from '../../constants/Colors'
 
 const ProductsOverviewScreen = props => {
   const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
 
+  const selectItemHandler = (id, title) => {
+    props.navigation.navigate("ProductDetail", {
+      id: id,
+      title: title
+    });
+  };
+
   return (
     <FlatList
       data={products}
-      renderItem={itemData => (
+      renderItem={({ item }) => (
         <ProductItem
-          title={itemData.item.title}
-          price={itemData.item.price}
-          image={itemData.item.imageUrl}
-          onViewDetail={() => {
-            props.navigation.navigate("ProductDetail", {
-              id: itemData.item.id,
-              title: itemData.item.title
-            });
+          title={item.title}
+          price={item.price}
+          image={item.imageUrl}
+          onSelect={() => {
+            selectItemHandler(item.id, item.title);
           }}
-          onAddToCart={() => {
-            dispatch(cartActions.addToCart(itemData.item));
-          }}
-        />
+        >
+          <Button
+            color={Colors.primary}
+            title="View Details"
+            onPress={() => {
+              selectItemHandler(item.id, item.title);
+            }}
+          />
+          <Button
+            color={Colors.primary}
+            title="To Cart"
+            onPress={() => dispatch(cartActions.addToCart(item))}
+          />
+        </ProductItem>
       )}
     />
   );
 };
 
-ProductsOverviewScreen.navigationOptions = ({navigation}) => {
+ProductsOverviewScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: "All Products",
     headerLeft: (
