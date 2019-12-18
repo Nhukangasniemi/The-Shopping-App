@@ -9,7 +9,7 @@ export const OrdersScreen = props => {
   return (
     <FlatList
       data={orders}
-      renderItem={({ item }) => <Text>item.totalAmount</Text>}
+      renderItem={({ item }) => <Text>{item.totalAmount}</Text>}
     />
   );
 };
@@ -22,7 +22,7 @@ OrdersScreen.navigationOptions = navData => {
         <Item
           title="Menu"
           onPress={() => {
-            navData.navigation.toggleDraw();
+            navData.navigation.toggleDrawer();
           }}
           iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
         />

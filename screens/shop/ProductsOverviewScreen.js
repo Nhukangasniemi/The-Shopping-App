@@ -33,7 +33,7 @@ const ProductsOverviewScreen = props => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = navData => {
+ProductsOverviewScreen.navigationOptions = ({navigation}) => {
   return {
     headerTitle: "All Products",
     headerLeft: (
@@ -41,7 +41,7 @@ ProductsOverviewScreen.navigationOptions = navData => {
         <Item
           title="Menu"
           onPress={() => {
-            navData.navigation.toggleDraw();
+            navigation.toggleDrawer();
           }}
           iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
         />
@@ -52,7 +52,7 @@ ProductsOverviewScreen.navigationOptions = navData => {
         <Item
           title="Cart"
           onPress={() => {
-            navData.navigation.navigate("Cart");
+            navigation.navigate("Cart");
           }}
           iconName={Platform.OS === "android" ? "md-cart" : "ios-cart"}
         />
