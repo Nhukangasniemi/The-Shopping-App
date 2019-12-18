@@ -1,0 +1,33 @@
+import React from "react";
+import { FlatList, Text, Platform } from "react-native";
+import { useSelector } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../../components/UI/HeaderButton";
+
+export const OrdersScreen = props => {
+  const orders = useSelector(state => state.orders.orders);
+  return (
+    <FlatList
+      data={orders}
+      renderItem={({ item }) => <Text>item.totalAmount</Text>}
+    />
+  );
+};
+
+OrdersScreen.navigationOptions = navData => {
+  return {
+    headerTitle: "Your Orders",
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          onPress={() => {
+            navData.navigation.toggleDraw();
+          }}
+          iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
+        />
+      </HeaderButtons>
+    )
+  };
+};
+export default OrdersScreen;

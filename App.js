@@ -12,7 +12,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
-  order: ordersReducer
+  orders: ordersReducer
 });
 
 // Remove composeWithDevTools before going to production
