@@ -23,7 +23,7 @@ const ProductsOverviewScreen = props => {
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
-    setError(null)
+    setError(null);
     setIsLoading(true);
     try {
       await dispatch(fetchProducts());
@@ -32,6 +32,17 @@ const ProductsOverviewScreen = props => {
     }
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    const willFocusSub = props.navigation.addListener("willFocus", () => {
+      loadProducts();
+      //load Products when it will focus to this screen
+    });
+    //navigation props not added to dependency to void unecessary reruns 
+    return () => {
+      willFocusSub.remove()
+    }
+  }, [loadProducts]);
 
   useEffect(() => {
     loadProducts();
