@@ -1,8 +1,8 @@
-export const DELETE_PRODUCT = "DELETE_PRODUCT";
 import Product from "./../../models/product";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PRODUCTS = "SET_PRODUCTS";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 export const fetchProducts = () => async dispatch => {
   try {
@@ -37,16 +37,19 @@ export const fetchProducts = () => async dispatch => {
 };
 
 export const deleteProduct = productId => async dispatch => {
-  await fetch(
-      `https://the-shopping-app-7385a.firebaseio.com/products/${id}.json`,
-      {
-        method: "DELETE",
-      }
-    );
+  const response = await fetch(
+    `https://the-shopping-app-7385a.firebaseio.com/products/${productId}.json`,
+    {
+      method: "DELETE"
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
   dispatch({
     type: DELETE_PRODUCT,
     pid: productId
-  })
+  });
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
@@ -88,7 +91,7 @@ export const updateProduct = (
   description,
   imageUrl
 ) => async dispatch => {
-  await fetch(
+  const response = await fetch(
     `https://the-shopping-app-7385a.firebaseio.com/products/${id}.json`,
     {
       method: "PATCH",
@@ -103,6 +106,9 @@ export const updateProduct = (
     }
   );
 
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
   dispatch({
     type: UPDATE_PRODUCT,
     pid: id,
