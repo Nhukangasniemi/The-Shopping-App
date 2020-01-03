@@ -1,14 +1,23 @@
-import React from "react";
-import { StyleSheet, View, Text, FlatList, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Button,
+  ActivityIndicator
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import DefaultText from "./../../components/DefaultText";
 import Colors from "../../constants/Colors";
 import CartItem from "../../components/shop/CartItem";
 import { removeFromCart } from "../../store/actions/cart";
 import { addOrder } from "../../store/actions/orders";
-import Card from './../../components/UI/Card';
+import Card from "./../../components/UI/Card";
 
 const CartScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
   const cartItems = useSelector(state => {
     const transformedCartItems = [];
@@ -27,23 +36,30 @@ const CartScreen = () => {
   });
   const dispatch = useDispatch();
 
+  const sendOrderHandler = async () => {
+    setIsLoading(true);
+    await dispatch(addOrder(cartItems, cartTotalAmount));
+    setIsLoading(false);
+  };
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
         <DefaultText style={styles.summaryText}>
           Total:{" "}
           <DefaultText style={styles.amount}>
-            ${(parseFloat(cartTotalAmount).toFixed(2) * 1)}
+            ${parseFloat(cartTotalAmount).toFixed(2) * 1}
           </DefaultText>
         </DefaultText>
-        <Button
-          color={Colors.accent}
-          title="Order Now"
-          disabled={cartItems.length === 0}
-          onPress={() => {
-            dispatch(addOrder(cartItems, cartTotalAmount));
-          }}
-        />
+        {isLoading ? (
+          <ActivityIndicator size="small" color={Colors.primary} />
+        ) : (
+          <Button
+            color={Colors.accent}
+            title="Order Now"
+            disabled={cartItems.length === 0}
+            onPress={sendOrderHandler}
+          />
+        )}
       </Card>
       <View>
         <FlatList
@@ -73,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
-    padding: 10,
+    padding: 10
   },
   summaryText: {
     fontSize: 18,
