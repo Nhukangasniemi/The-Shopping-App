@@ -46,12 +46,16 @@ const AuthScreen = props => {
               onValueChange={() => {}}
               initialValue=""
             />
-            <Button title="Login" color={Colors.primary} onPress={() => {}} />
-            <Button
-              title="Switch to Sign Up"
-              color={Colors.accent}
-              onPress={() => {}}
-            />
+            <View style={styles.buttonContainer}>
+              <Button title="Login" color={Colors.primary} onPress={() => {}} />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Switch to Sign Up"
+                color={Colors.accent}
+                onPress={() => {}}
+              />
+            </View>
           </ScrollView>
         </Card>
       </LinearGradient>
@@ -65,7 +69,7 @@ AuthScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    flex: 1
   },
   container: {
     width: "80%",
@@ -77,6 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  buttonContainer: {
+      marginTop: 10,
   }
 });
 
